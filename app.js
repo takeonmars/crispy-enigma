@@ -25,22 +25,16 @@ app.post("/upload", function (req, res, next) {
     if(!filedata)
         res.send("Ошибка при загрузке файла");
     else{
-    	let resultTxt = "Файл загружен<br>";
 		createImg(filedata.path);
-    	resultTxt += "<a href='/download'>Скачать обработанное изображение</a>";
-        res.send(resultTxt);
-    }
-});
-app.get("/download", function (req, res, next) {
-		console.log(fs.readdirSync('uploads'))
-		
-        const file = 'result.png'
+    	const file = 'result.png'
 		if (fs.existsSync(file)) {
 	        res.download(file)
 		} else {
 			res.send('Ошибка сервера: файл не существует')
 		}
+    }
 });
+
 app.listen(3000);
 
 function createImg(filePath){
